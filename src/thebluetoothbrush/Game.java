@@ -23,6 +23,7 @@ public class Game{
    static int indexY = 0;
    boolean gameOver = false;
    int time;  
+   boolean click1Occured = false;
    boolean mselect = false;
    boolean xselect = false;
    boolean pselect = false;
@@ -122,19 +123,26 @@ public class Game{
                 buttArray[i][j].addActionListener(new ActionListener(){
                 
                 public void actionPerformed(ActionEvent e){
+               //if we hadven't clicked our first unit
+               if(!click1Occured&&board[i][j]>){
+                  click1Occured = true;
+               }
+               if(click1Occured){
+                  if(board[i][j]>0/*&&ISADJACENT*/){
+                     //attack
+                     click1Occued = false;
+                  }
+                  if(board[i][j]=0/*&&withinRange*/){
+                     //move to space
+                  }
+                  //if(click ability){
+                   //do ability or something, take to thrid selection screen  
+                 // }
+               }
                
-                if( mselect == true ){
-                    mselect = false;
-                }else{
-                if( xselect == true ){
-                    
-                }else{
-                if( pselect == true ){  
+               
+               
                 
-                }else{
-                    mselect = true;
-                }
-                }
             }System.out.println(mselect);
             }
         });
