@@ -13,6 +13,10 @@ import thebluetoothbrush.Game;
  * @author eman0_000
  */
 public class RatTacSim {
+    public void updateButton(){
+        //So here we plan on creating code that updates the button array based
+        //on the new array
+    }
 
     /**
      * @param args the command line arguments
