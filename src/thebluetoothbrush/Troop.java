@@ -22,10 +22,13 @@ public class Troop{
         health = 1;
         type = 0;
     }
+    Troop( String base ){
+        type = 21;
+    }
     Troop( int h ){
         health = h;
         attack = 0 ;
-        type = 9;
+        type = 22;
         speed = 0;
     }
     
