@@ -21,25 +21,27 @@ import javax.swing.JFrame;
 public class Game{
    static int indexX = 0;
    static int indexY = 0;
+   int x;
+   int y;
    boolean gameOver = false;
-   int time;  
-   boolean mselect = false;
-   boolean xselect = false;
-   boolean pselect = false;
+   int tcount;  
+   boolean toggle;
    Troop[][] board = new Troop[13][13];
+   int[][] holder = new int[2][2];
+   Troop[] temp = new Troop[2];
    Troop dbase = new Troop( "base" );//theyre all bases
    Troop rbase = new Troop( "base" );//theyre all bases
    Troop cbase = new Troop( "base" );//theyre all bases
    Troop ruff = new Troop( 80, 2, 1, 1, 1);
-   Troop arch = new Troop( 50, 3, 1, 1, 2);
-   Troop grw = new Troop( 20, 3, 1, 1, 3);
+   Troop arch = new Troop( 50, 3, 1, 1, 6);
+   Troop grw = new Troop( 20, 3, 1, 1, 11);
    ArrayList<Integer> dinfo = new ArrayList<Integer>();
    ArrayList<Integer> cinfo = new ArrayList<Integer>();
    ArrayList<Integer> rinfo = new ArrayList<Integer>();
      
        public void newGame(){
          
-        time = 0;
+        tcount = 0;
         dinfo.add(0);
         cinfo.add(0);
         rinfo.add(0);
@@ -70,10 +72,10 @@ public class Game{
                 board[j][i] = new Troop(1000);
             }
        }
-            board[4][10].setType();
-            board[4][9].setType();
-            board[10][4].setType();
-            board[9][4].setType();
+            board[4][10].setType(0);
+            board[4][9].setType(0);
+            board[10][4].setType(0);
+            board[9][4].setType(0);
         
         board[0][0] = dbase;
         board[0][12] = cbase;
@@ -94,9 +96,7 @@ public class Game{
         JButton [][] buttArray = new JButton[13][13];
         for(int i = 0;i<13;i++){
             for(int j = 0;j<13;j++){
-                buttArray[i][j] = new JButton();  
-                
-                        
+                buttArray[i][j] = new JButton();                     
             }
         }
         for(int i = 0;i<13;i++){
@@ -106,7 +106,7 @@ public class Game{
             }
         }
 
-        for(int i = 0;i<13;i++){
+        for(int i = 0 ; i < 13 ; i++){
             for(int j = 0;j<13;j++){
                 if( board[i][j].getType() == 22){
                     buttArray[i][j].setVisible(false);
@@ -116,36 +116,39 @@ public class Game{
             }
         }
         
-       for(int i = 0;i<13;i++)
+       for(int i = 0 ; i < 13 ; i++)
         {
-            for(int j = 0;j<13;j++){
-                buttArray[i][j].addActionListener(new ActionListener(){
-                
+            for(int j = 0 ; j < 13 ; j++){
+                buttArray[i][j].addActionListener( new Listener ( i , j ){
                 public void actionPerformed(ActionEvent e){
-               
-                if( mselect == true ){
-                    mselect = false;
-                }else{
-                if( xselect == true ){
                     
-                }else{
-                if( pselect == true ){  
-                
-                }else{
-                    mselect = true;
-                }
-                }
-            }System.out.println(mselect);
-            }
-        });
+                    if( toggle == false ){
+                       holder[0][0] = getX(this); //holder "holds" two sets of coordinates
+                       holder[0][1] = getY(this);
+                       x = holder[0][0]; //just for shortening
+                       y = holder[0][1];
+                       toggle = true; //recognizes the second click
+                       System.out.println(x);
+                       System.out.println(y);//test 
+                       
+                   }else{
+                      
+                       temp = doIt(determ(board[x][y],board[getX(this)][getY(this)]), board[x][y],board[getX(this)][getY(this)]); //basically hold two troops
+                       System.out.println( temp[0].getType());
+                       System.out.println( temp[0].getHealth());
+                       System.out.println( temp[1].getType());
+                       System.out.println( temp[1].getHealth());
+                       board[x][y] = temp[0]; //replaces first one with modified guy
+                       board[getX(this)][getY(this)] = temp[1];//replaces first 2nd with modified guy
+                       printBoard();
+                       toggle = false;
+                   }
+             }});
             }}
         frame.setVisible(true);
     }
        public void newTurn(){
-           xselect = false;
-           pselect = false;
-           mselect = false;
-           time++;
+           tcount++;
            dinfo.set(0, 4);
            cinfo.set(0, 4);
            rinfo.set(0, 4);

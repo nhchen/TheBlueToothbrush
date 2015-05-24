@@ -21,9 +21,15 @@ public class Troop{
     Troop(){
         health = 1;
         type = 0;
+        attack = 0;
+        speed = 0;
+        
     }
     Troop( String base ){
         type = 21;
+        health = 1000;
+        attack = 0;
+        speed = 0;
     }
     Troop( int h ){
         health = h;
@@ -41,11 +47,21 @@ public class Troop{
         type = t;
        
     }
-
+        public int getX(){
+            return x;
+        }
+        public int getY(){
+            return y;
+        }
+        
         public void setAttack( int a ){
             attack = a;
         }
-
+        
+        public void setHealth( int h ){
+            health = h;
+        }
+        
         public int getHealth(){
             return health;
         }
@@ -53,8 +69,8 @@ public class Troop{
         public int getSpeed(){
             return speed;
         }
-        public void setType(){
-            type = 0;
+        public void setType(int t){
+            type = t;
         }
         public int getAttack(){
             return attack;
