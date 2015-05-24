@@ -44,7 +44,17 @@ public class RatTacSim {
             }
         }
        buttArray[2][2].setVisible(false);
-       
+       for(int i = 0;i<13;i++)
+        {
+            for(int j = 0;j<13;j++){
+                buttArray[i][j].addActionListener(new ActionListener(){
+                public void actionPerformed(ActionEvent e){
+                    
+                    System.out.println("Button Press");
+                }
+            });
+            }
+        }
         frame.setVisible(true);
     }
     
